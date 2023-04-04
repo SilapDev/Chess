@@ -22,10 +22,12 @@ const BoardComponent: FC<BoardProps> = ({ board, setBoard }) => {
         } else {
             setSelectedCell(cell)
         }
-
-
-
     }
+    useEffect(() => {
+
+        hightlightCells()
+
+    }, [selectedCell])
 
     const hightlightCells = () => {
         board.hightlightCells(selectedCell)
@@ -40,11 +42,6 @@ const BoardComponent: FC<BoardProps> = ({ board, setBoard }) => {
     }
 
 
-    useEffect(() => {
-
-        hightlightCells()
-
-    }, [selectedCell])
 
 
     return (
