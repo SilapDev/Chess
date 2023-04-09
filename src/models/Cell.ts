@@ -27,6 +27,13 @@ export class Cell {
         return this.figure === null;
     }
 
+    isEnemy(target: Cell): boolean {
+        if(target.figure) {
+            return this.figure?.color !== target.figure.color
+        }
+        return false
+    }
+
 
     isEmptyVertical(target: Cell): boolean {
 
@@ -96,6 +103,11 @@ export class Cell {
 
     }
 
+    addLostFigure(figure: Figure) {
+        figure.color === Colors.BLACK 
+        ? this.board.lostBlackFigures.push(figure)
+        : this.board.lostWhiteFigures.push(figure)
+    }
 
     setFigure(figure: Figure) {
         this.figure = figure
@@ -105,6 +117,9 @@ export class Cell {
     moveFigure(target: Cell) {
         if (this.figure && this.figure?.canMove(target)) {
             this.figure.moveFigure(target)
+            if(target.figure){
+                this.addLostFigure(target.figure)
+            }
             target.setFigure(this.figure)
             this.figure = null
         }
